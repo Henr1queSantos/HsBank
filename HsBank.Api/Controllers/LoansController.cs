@@ -1,4 +1,5 @@
 using HsBank.Application.Commands.Loans;
+using HsBank.Application.Queries.Loans;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,5 +22,14 @@ public class LoansController : ControllerBase
         var loanId = await _mediator.Send(command);
 
         return CreatedAtAction(nameof(CreateLoan), new { id = loanId }, command);
+    }
+
+    [HttpGet("customer/{customerId}")]
+    public async Task<IActionResult> GetLoansByCustomer(Guid customerId)
+    {
+        var query = new GetLoansByCustomerQuery(customerId);
+        var loans = await _mediator.Send(query);
+
+        return Ok(loans);
     }
 }
