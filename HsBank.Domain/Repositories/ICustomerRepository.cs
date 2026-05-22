@@ -5,4 +5,5 @@ namespace HsBank.Domain.Repositories;
 public interface ICustomerRepository
 {
     Task AddAsync(Customer customer, CancellationToken cancellationToken);
+    Task<IEnumerable<Customer>> GetAllAsync(CancellationToken cancellationToken);
 }

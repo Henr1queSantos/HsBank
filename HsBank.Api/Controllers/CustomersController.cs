@@ -1,6 +1,7 @@
 using HsBank.Application.Commands.Customers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using HsBank.Application.Queries.Customers;
 
 namespace HsBank.Api.Controllers;
 
@@ -18,9 +19,16 @@ public class CustomersController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerCommand command)
     {
-        
         var customerId = await _mediator.Send(command);
-
         return CreatedAtAction(nameof(CreateCustomer), new { id = customerId }, command);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllCustomers()
+    {
+        var query = new GetAllCustomersQuery();
+        var customers = await _mediator.Send(query);
+        
+        return Ok(customers); 
     }
 }
