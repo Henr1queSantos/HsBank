@@ -1,0 +1,6 @@
+@HsBank.Api_HostAddress = http://localhost:5264
+
+GET {{HsBank.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
