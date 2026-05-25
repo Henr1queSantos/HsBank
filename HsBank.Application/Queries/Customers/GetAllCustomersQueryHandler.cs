@@ -1,10 +1,11 @@
+using HsBank.Application.Wrappers;
 using HsBank.Domain.Entities;
 using HsBank.Domain.Repositories;
 using MediatR;
 
 namespace HsBank.Application.Queries.Customers;
 
-public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery, List<Customer>>
+public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery, PagedResult<Customer>>
 {
     private readonly ICustomerRepository _customerRepository;
 
@@ -13,9 +14,10 @@ public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery,
         _customerRepository = customerRepository;
     }
 
-    public async Task<List<Customer>> Handle(GetAllCustomersQuery request, CancellationToken cancellationToken)
+    public async Task<PagedResult<Customer>> Handle(GetAllCustomersQuery request, CancellationToken cancellationToken)
     {
-        var customers = await _customerRepository.GetAllAsync(cancellationToken);
-        return customers.ToList();
+        var (customers, totalCount) = await _customerRepository.GetAllPagedAsync(request.PageNumber, request.PageSize, cancellationToken);
+
+        return new PagedResult<Customer>(customers.ToList(), totalCount, request.PageNumber, request.PageSize);
     }
 }

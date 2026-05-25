@@ -24,4 +24,17 @@ public class CustomerRepository : ICustomerRepository
     {
         return await _context.Customers.AsNoTracking().ToListAsync(cancellationToken);
     }
+
+    public async Task<(IEnumerable<Customer> Customers, int TotalCount)> GetAllPagedAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
+    {
+        var totalCount = await _context.Customers.CountAsync(cancellationToken);
+
+        var customers = await _context.Customers
+            .AsNoTracking()
+            .Skip((pageNumber - 1) * pageSize) 
+            .Take(pageSize)                   
+            .ToListAsync(cancellationToken);
+
+        return (customers, totalCount);
+    }
 }

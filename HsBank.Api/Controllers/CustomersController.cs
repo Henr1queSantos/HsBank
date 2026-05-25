@@ -24,11 +24,11 @@ public class CustomersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllCustomers()
+    public async Task<IActionResult> GetAllCustomers([FromQuery] int page = 1, [FromQuery] int size = 10)
     {
-        var query = new GetAllCustomersQuery();
-        var customers = await _mediator.Send(query);
+        var query = new GetAllCustomersQuery(page, size);
+        var pagedResult = await _mediator.Send(query);
         
-        return Ok(customers); 
+        return Ok(pagedResult);
     }
 }
