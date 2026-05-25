@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HsBank.Infrastructure", "Hs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HsBank.Api", "HsBank.Api\HsBank.Api.csproj", "{918D12C7-1FB9-481F-A478-8D8324EDEF7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HsBank.Application.Tests", "HsBank.Application.Tests\HsBank.Application.Tests.csproj", "{1DAEA260-C068-4985-A273-EEA070036BFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{918D12C7-1FB9-481F-A478-8D8324EDEF7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{918D12C7-1FB9-481F-A478-8D8324EDEF7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{918D12C7-1FB9-481F-A478-8D8324EDEF7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DAEA260-C068-4985-A273-EEA070036BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DAEA260-C068-4985-A273-EEA070036BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DAEA260-C068-4985-A273-EEA070036BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DAEA260-C068-4985-A273-EEA070036BFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
