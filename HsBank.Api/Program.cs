@@ -1,4 +1,5 @@
 using FluentValidation;
+using HsBank.Api.Middlewares;
 using HsBank.Application.Commands.Customers;
 using HsBank.Domain.Repositories;
 using HsBank.Infrastructure.Persistence;
@@ -25,7 +26,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
+app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {
