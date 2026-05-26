@@ -37,4 +37,9 @@ public class CustomerRepository : ICustomerRepository
 
         return (customers, totalCount);
     }
+
+    public async Task<Customer?> GetByEmailAsync(string email, CancellationToken cancellationToken)
+    {
+        return await _context.Customers.FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
+    }
 }

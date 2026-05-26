@@ -1,7 +1,9 @@
 using FluentValidation;
 using HsBank.Api.Middlewares;
 using HsBank.Application.Commands.Customers;
+using HsBank.Application.Interfaces.Authentication;
 using HsBank.Domain.Repositories;
+using HsBank.Infrastructure.Authentication;
 using HsBank.Infrastructure.Persistence;
 using HsBank.Infrastructure.Repositories;
 using MediatR;
@@ -28,6 +30,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
 var app = builder.Build();
 app.UseExceptionHandler();
