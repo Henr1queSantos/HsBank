@@ -8,6 +8,8 @@ using HsBank.Infrastructure.Persistence;
 using HsBank.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MassTransit;
+using HsBank.Api.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,21 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(HsBank.Applic
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<LoanCreatedEventConsumer>();
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
